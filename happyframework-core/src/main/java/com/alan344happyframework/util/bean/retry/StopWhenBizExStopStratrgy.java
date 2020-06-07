@@ -5,7 +5,7 @@ import com.github.rholder.retry.StopStrategy;
 
 /**
  * @author alan
- * @createtime 18-10-24 下午6:24 *
+ * @date 18-10-24 下午6:24 *
  */
 public class StopWhenBizExStopStratrgy implements StopStrategy {
     @Override

@@ -12,7 +12,7 @@ import java.util.zip.DataFormatException;
 
 /**
  * @author alan
- * @createtime 18-8-15 下午3:38 *
+ * @date 18-8-15 下午3:38 *
  * <p>
  * 腾讯IM
  */

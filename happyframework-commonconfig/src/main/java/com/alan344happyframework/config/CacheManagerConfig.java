@@ -26,7 +26,7 @@ import java.time.Duration;
 
 /**
  * @author AlanSun
- * @createtime 2017年7月5日 下午1:02:23
+ * @date 2017年7月5日 下午1:02:23
  */
 @Configuration
 @ConditionalOnBean(RedisConnectionFactory.class)

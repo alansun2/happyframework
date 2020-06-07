@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  * @author alan
- * @createtime 18-7-12 下午4:51 * jwo
+ * @date 18-7-12 下午4:51 * jwo
  */
 public class JwtUtils {
 

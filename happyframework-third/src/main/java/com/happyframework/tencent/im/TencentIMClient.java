@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  * @author alan
- * @createtime 18-8-15 上午10:25 *
+ * @date 18-8-15 上午10:25 *
  */
 @FeignClient(name = "tencent-Im", url = "https://console.tim.qq.com", path = "/v4/")
 public interface TencentIMClient {

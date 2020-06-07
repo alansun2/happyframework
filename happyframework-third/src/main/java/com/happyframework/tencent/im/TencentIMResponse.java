@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author alan
- * @createtime 18-8-15 下午12:25 *
+ * @date 18-8-15 下午12:25 *
  * <p>
  * 70402	参数非法。请检查必填字段是否填充，或者字段的填充是否满足协议要求。
  * 70403	发起操作者不是APP管理员，没有权限操作。

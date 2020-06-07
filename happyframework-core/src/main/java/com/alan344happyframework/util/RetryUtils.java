@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author alan
- * @createtime 18-8-15 下午4:54 *
+ * @date 18-8-15 下午4:54 *
  */
 public class RetryUtils {
 

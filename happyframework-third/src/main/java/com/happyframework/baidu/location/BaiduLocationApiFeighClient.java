@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author alan
- * @createtime 18-9-26 下午1:00 * 百度地图api
+ * @date 18-9-26 下午1:00 * 百度地图api
  */
 @FeignClient(name = "BaiduLocationApiClient", url = "http://api.map.baidu.com", fallback = BaiduLocationApiFeighClient.BaiduLocationApiFallback.class, decode404 = true)
 public interface BaiduLocationApiFeighClient {

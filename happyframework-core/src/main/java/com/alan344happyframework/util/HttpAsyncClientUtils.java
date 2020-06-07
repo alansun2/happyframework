@@ -39,7 +39,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * @author AlanSun
- * @createtime 2019-07-02
+ * @date 2019-07-02
  */
 @Slf4j
 public class HttpAsyncClientUtils {

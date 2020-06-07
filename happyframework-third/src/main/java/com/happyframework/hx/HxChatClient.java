@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * @author alan
- * @createtime 18-6-26 * 环信聊天
+ * @date 18-6-26 * 环信聊天
  * 401 token 失效，重新获取token
  * 404 用户不存在
  */

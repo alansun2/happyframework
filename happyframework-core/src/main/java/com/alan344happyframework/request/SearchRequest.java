@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 /**
  * @author alan
- * @createtime 17-12-28 * 搜索请求类
+ * @date 17-12-28 * 搜索请求类
  */
 @Getter
 @Setter

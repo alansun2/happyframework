@@ -7,7 +7,7 @@ import java.util.*;
 
 /**
  * @author alan
- * @createtime 18-1-9 * 验证
+ * @date 18-1-9 * 验证
  * <p>
  * md5签名
  */

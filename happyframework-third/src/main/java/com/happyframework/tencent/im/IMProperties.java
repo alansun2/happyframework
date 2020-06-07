@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author alan
- * @createtime 18-8-15 下午12:38 *
+ * @date 18-8-15 下午12:38 *
  */
 @Getter
 @Setter

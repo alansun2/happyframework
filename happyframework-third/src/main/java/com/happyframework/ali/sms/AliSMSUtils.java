@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author alan
- * @createtime 18-8-10 下午1:17 * 阿里短信服务工具类
+ * @date 18-8-10 下午1:17 * 阿里短信服务工具类
  */
 @Slf4j
 @Component

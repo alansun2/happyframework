@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author alan
- * @createtime 18-6-7 * Apache httpclient 配置
+ * @date 18-6-7 * Apache httpclient 配置
  */
 @Configuration
 public class HttpClientConfig {

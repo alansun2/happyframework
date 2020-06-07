@@ -12,7 +12,7 @@ import java.util.*;
  * bean工具类.
  *
  * @author demon
- * @createtime 2016/5/11 9:40
+ * @date 2016/5/11 9:40
  */
 public class BeanUtils {
 

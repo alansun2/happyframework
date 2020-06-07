@@ -7,7 +7,7 @@ import lombok.Setter;
 
 /**
  * @author AlanSun
- * @createtime 2017年3月24日 下午2:32:30
+ * @date 2017年3月24日 下午2:32:30
  */
 @Getter
 @Setter
