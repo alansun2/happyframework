@@ -4,7 +4,7 @@
 
     <groupId>icu.alan344</groupId>
     <artifactId>happyframework</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>happyframework</name>
@@ -23,7 +23,7 @@
         <url>https://github.com/alansun2</url>
         <connection>scm:git:https://github.com/alansun2/happyframework</connection>
         <developerConnection>scm:git:git@github.com:alansun2/happyframework.git</developerConnection>
-      <tag>v1.0.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <developers>
@@ -90,7 +90,7 @@
             <dependency>
                 <groupId>icu.alan344</groupId>
                 <artifactId>happyframework-core</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
