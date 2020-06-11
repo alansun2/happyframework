@@ -24,7 +24,7 @@
     <scm>
         <url>https://github.com/alansun2</url>
         <connection>scm:git:https://github.com/alansun2/happyframework</connection>
-        <developerConnection>scm:git:https://github.com/alansun2/happyframework.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:alansun2/happyframework.git</developerConnection>
     </scm>
 
     <developers>
