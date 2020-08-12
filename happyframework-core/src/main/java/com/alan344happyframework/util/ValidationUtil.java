@@ -1,6 +1,5 @@
 package com.alan344happyframework.util;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.HibernateValidator;
@@ -12,11 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @author AlanSun
+ * @date 2020/8/12 17:09
+ **/
 public class ValidationUtil {
     /**
      * 开启快速结束模式 failFast (true)
      */
-    private static Validator validator = Validation.byProvider(HibernateValidator.class).configure().failFast(true).buildValidatorFactory().getValidator();
+    private static final Validator VALIDATOR = Validation.byProvider(HibernateValidator.class).configure().failFast(true).buildValidatorFactory().getValidator();
 
     /**
      * 校验对象
@@ -26,8 +29,8 @@ public class ValidationUtil {
      * @return ValidResult
      */
     public static <T> ValidResult validateBean(T t, Class<?>... groups) {
-        ValidResult result = new ValidationUtil().new ValidResult();
-        Set<ConstraintViolation<T>> violationSet = validator.validate(t, groups);
+        ValidResult result = new ValidationUtil.ValidResult();
+        Set<ConstraintViolation<T>> violationSet = VALIDATOR.validate(t, groups);
         boolean hasError = violationSet != null && violationSet.size() > 0;
         result.setHasErrors(hasError);
         if (hasError) {
@@ -46,8 +49,8 @@ public class ValidationUtil {
      * @return ValidResult
      */
     public static <T> ValidResult validateProperty(T obj, String propertyName) {
-        ValidResult result = new ValidationUtil().new ValidResult();
-        Set<ConstraintViolation<T>> violationSet = validator.validateProperty(obj, propertyName);
+        ValidResult result = new ValidationUtil.ValidResult();
+        Set<ConstraintViolation<T>> violationSet = VALIDATOR.validateProperty(obj, propertyName);
         boolean hasError = violationSet != null && violationSet.size() > 0;
         result.setHasErrors(hasError);
         if (hasError) {
@@ -63,7 +66,7 @@ public class ValidationUtil {
      */
     @Getter
     @Setter
-    public class ValidResult {
+    public static class ValidResult {
 
         /**
          * 是否有错误
@@ -114,8 +117,9 @@ public class ValidationUtil {
         }
     }
 
-    @Data
-    public class ErrorMessage {
+    @Getter
+    @Setter
+    public static class ErrorMessage {
 
         private String propertyPath;
 
@@ -129,5 +133,4 @@ public class ValidationUtil {
             this.message = message;
         }
     }
-
 }
