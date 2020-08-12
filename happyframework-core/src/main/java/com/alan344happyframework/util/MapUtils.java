@@ -77,17 +77,4 @@ public class MapUtils {
         s = Math.round(s * 1000);
         return s;
     }
-
-    /**
-     * 使用reflect(反射)进行转换
-     *
-     * @param map
-     * @param beanClass
-     * @return
-     * @throws Exception
-     */
-    public static Object map2Bean(Map<String, Object> map, Class<?> beanClass) throws Exception {
-
-        return null;
-    }
 }

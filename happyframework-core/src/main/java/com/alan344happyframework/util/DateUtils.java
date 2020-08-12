@@ -1,8 +1,10 @@
 package com.alan344happyframework.util;
 
+import com.alan344happyframework.exception.InnerException;
 import org.joda.time.DateTime;
 import org.joda.time.Seconds;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -13,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 日期处理工具类
  *
- * @author chenlong 2015-12-17
+ * @author AlanSun 2015-12-17
  */
 public class DateUtils {
     public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
@@ -53,8 +55,7 @@ public class DateUtils {
         try {
             return formatDate(new Date(), format);
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new InnerException("获取指定格式的当前时间错误", e);
         }
     }
 
@@ -98,9 +99,10 @@ public class DateUtils {
     /**
      * 获取今日所剩时间
      */
-    public static int getTodayLeft() {
+    public static long getTodayLeft(TimeUnit timeUnit) {
         DateTime dateTime = DateTime.now();
-        return Seconds.secondsBetween(dateTime, dateTime.millisOfDay().withMaximumValue()).getSeconds();
+        final int seconds = Seconds.secondsBetween(dateTime, dateTime.millisOfDay().withMaximumValue()).getSeconds();
+        return timeUnit.convert(seconds, TimeUnit.SECONDS);
     }
 
     /**
@@ -108,15 +110,13 @@ public class DateUtils {
      *
      * @return 相应timeUnit的时间差
      */
-    public static Object getDiffTime(DateTime date1, DateTime date2, TimeUnit timeUnit) {
+    public static long getDiffTime(DateTime date1, DateTime date2, TimeUnit timeUnit) {
         if (date1 == null || date2 == null) {
             throw new IllegalArgumentException("参数不能为空");
         }
 
-        if (timeUnit.equals(TimeUnit.SECONDS)) {
-            return Seconds.secondsBetween(date1, date2).getSeconds();
-        }
-        return null;
+        final int seconds = Seconds.secondsBetween(date1, date2).getSeconds();
+        return timeUnit.convert(seconds, TimeUnit.SECONDS);
     }
 
     /**
@@ -141,14 +141,17 @@ public class DateUtils {
      * @param format 日期的格式
      * @return Date
      */
-    public static Date parseDate(final String date, final String format)
-            throws Exception {
+    public static Date parseDate(final String date, final String format) {
         if (date == null || "".equals(date.trim())) {
             return null;
         }
 
         SimpleDateFormat fmt = new SimpleDateFormat(format);
-        return fmt.parse(date);
+        try {
+            return fmt.parse(date);
+        } catch (ParseException e) {
+            throw new InnerException("符串格式化为Date类型错误", e);
+        }
     }
 
     /**
@@ -172,5 +175,4 @@ public class DateUtils {
         DateTime dateTime2 = new DateTime(date2);
         return dateTime1.toLocalDate().equals(dateTime2.minusDays(diff).toLocalDate());
     }
-
 }

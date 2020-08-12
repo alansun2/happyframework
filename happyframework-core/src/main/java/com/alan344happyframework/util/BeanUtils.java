@@ -1,5 +1,6 @@
 package com.alan344happyframework.util;
 
+import com.alan344happyframework.exception.InnerException;
 import com.alan344happyframework.util.annotation.NoNeedConvert;
 
 import java.beans.PropertyDescriptor;
@@ -20,12 +21,11 @@ public class BeanUtils {
      * 将java bean转到map，map的key为给定的attrs
      *
      * @param obj   bean实例
-     * @param clazz bean的class
      * @param attrs 需要转换的属性
      * @return 实体的属性map，key为属性名，value为属性值
      */
-    @SuppressWarnings("unchecked")
-    public static Map<String, Object> beanToMap(Object obj, Class clazz, String... attrs) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static Map<String, Object> beanToMap(Object obj, String... attrs) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        final Class<?> clazz = obj.getClass();
         Map<String, Object> resultMap = new HashMap<>(attrs.length);
         for (String attr : attrs) {
             Method method = clazz.getMethod(getMethodGetName(attr));
@@ -37,12 +37,11 @@ public class BeanUtils {
     /**
      * bean转为map
      *
-     * @param obj   类
-     * @param clazz clazz
+     * @param obj 类
      * @return map
      */
-    @SuppressWarnings("unchecked")
-    public static Map<String, Object> beanToMap(Object obj, Class clazz) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static Map<String, Object> beanToMap(Object obj) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        final Class<?> clazz = obj.getClass();
         Field[] fields = clazz.getDeclaredFields();
         Map<String, Object> resultMap = new HashMap<>(fields.length);
         for (Field field : fields) {
@@ -92,8 +91,7 @@ public class BeanUtils {
                 Method setMethod = target.getClass().getMethod(getMethodSetName(field.getName()), field.getType());
                 setMethod.invoke(target, getMethod.invoke(source));
             } catch (Exception e) {
-                e.printStackTrace();
-
+                throw new InnerException("复制属性错误", e);
             }
         }
     }
@@ -101,48 +99,41 @@ public class BeanUtils {
     /**
      * 调用指定属性的set方法
      *
-     * @param clazz
-     * @param field
-     * @param obj
-     * @param args
+     * @param field 属性
+     * @param obj   实例
+     * @param args  参数
      */
-    @SuppressWarnings("unchecked")
-    public static void invokeSet(Class clazz, Field field, Object obj, Object... args) {
+    public static void invokeSet(Field field, Object obj, Object... args) {
         Method method;
         try {
-            method = clazz.getMethod(getMethodSetName(field.getName()), field.getType());
+            method = obj.getClass().getMethod(getMethodSetName(field.getName()), field.getType());
             method.invoke(obj, args);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
+            throw new InnerException("调用指定属性的set方法错误", e);
         }
     }
 
     /**
      * 调用get方法
      *
-     * @param clazz
-     * @param source
-     * @param fieldName
-     * @return
+     * @param obj       实例
+     * @param fieldName 属性名
      */
-    @SuppressWarnings("unchecked")
-    public static Object invokeGet(Class clazz, Object source, String fieldName) {
+    public static void invokeGet(Object obj, String fieldName) {
         try {
-            Method getMethod = clazz.getMethod(getMethodGetName(fieldName));
-            return getMethod.invoke(source);
+            Method getMethod = obj.getClass().getMethod(getMethodGetName(fieldName));
+            getMethod.invoke(obj);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
+            throw new InnerException("调用get方法错误", e);
         }
-        return null;
     }
 
     /**
      * Object数组转bean
      *
-     * @param objArr
-     * @param t
-     * @param <T>
-     * @return
+     * @param objArr Object[] 列表
+     * @param t      <T>
+     * @return <T>
      */
     public static <T> T objArrToBean(Object[] objArr, Class<T> t) {
         T result = null;
@@ -152,7 +143,7 @@ public class BeanUtils {
             int i = 0;
             for (Field field : fields) {
                 if (!field.isAnnotationPresent(NoNeedConvert.class)) {
-                    invokeSet(t, field, result, objArr[i]);
+                    invokeSet(field, result, objArr[i]);
                     i++;
                 }
             }
@@ -165,10 +156,9 @@ public class BeanUtils {
     /**
      * list<Object[]>转成list<T>
      *
-     * @param objList
-     * @param t
-     * @param <T>
-     * @return
+     * @param objList Object[] 列表
+     * @param t       <T>
+     * @return <T> 数组
      */
     public static <T> List<T> listObjToListBean(List<Object[]> objList, Class<T> t) {
         List<T> resultList = new ArrayList<>();
@@ -182,12 +172,12 @@ public class BeanUtils {
     /**
      * 判断map中的value是否都为空
      *
-     * @param map
-     * @param <K>
-     * @param <V>
-     * @return
+     * @param map map
+     * @param <K> key
+     * @param <V> value
+     * @return true 都为空
      */
-    public static <K, V> boolean AllNullValues(Map<K, V> map) {
+    public static <K, V> boolean allNullValues(Map<K, V> map) {
         return Collections.frequency(map.values(), null) == map.size();
     }
 

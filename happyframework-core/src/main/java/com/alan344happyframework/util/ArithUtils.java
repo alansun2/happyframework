@@ -3,6 +3,12 @@ package com.alan344happyframework.util;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+/**
+ * @author AlanSun
+ * @date 2020/8/12 16:12
+ * <p>
+ * 运算
+ **/
 public class ArithUtils {
     /**
      * 默认除法运算精度

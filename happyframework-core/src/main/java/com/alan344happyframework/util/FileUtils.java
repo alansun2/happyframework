@@ -111,8 +111,8 @@ public class FileUtils {
     /**
      * 文件拷贝
      *
-     * @param in
-     * @param desPath
+     * @param in      输入流
+     * @param desPath 文件源
      */
     public static void streamHandler(InputStream in, String desPath) {
         BufferedInputStream bis = null;
@@ -125,13 +125,13 @@ public class FileUtils {
             }
             File file1 = new File(desPath.substring(0, desPath.lastIndexOf("/")));
             if (!file1.exists()) {
-                boolean mkdirs = file1.mkdirs();
+                file1.mkdirs();
             }
             bis = new BufferedInputStream(in);
             OutputStream out = new FileOutputStream(file, true);
             bos = new BufferedOutputStream(out);
             byte[] buff = new byte[1024];
-            int length = 0;
+            int length;
             while ((length = bis.read(buff)) != -1) {
                 bos.write(buff, 0, length);
             }
@@ -152,7 +152,7 @@ public class FileUtils {
     }
 
     /**
-     * 获取文件流
+     * 获取文件内容
      *
      * @param path 文件路径
      * @return content
@@ -205,7 +205,7 @@ public class FileUtils {
     }
 
     /**
-     * openOutputStream
+     * open OutputStream
      *
      * @param file   file
      * @param append append
