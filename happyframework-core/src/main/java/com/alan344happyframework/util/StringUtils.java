@@ -2,11 +2,10 @@ package com.alan344happyframework.util;
 
 import com.alan344happyframework.constants.SeparatorConstants;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 
 /**
@@ -204,5 +203,33 @@ public class StringUtils {
         }
 
         return sourceString.substring(0, lastIndex);
+    }
+
+    /**
+     * 将 String 转为 数字列表
+     */
+    public static List<Integer> formatString2IntList(String content, String separator) {
+        if (StringUtils.isNotEmpty(content)) {
+            final String[] split = content.split(separator);
+            if (split.length > 0) {
+                return Arrays.stream(split).map(Integer::parseInt).collect(Collectors.toList());
+            }
+        }
+
+        return Collections.emptyList();
+    }
+
+    /**
+     * 将 String 转为 String列表
+     */
+    public static List<String> formatString2StringList(String content, String separator) {
+        if (StringUtils.isNotEmpty(content)) {
+            final String[] split = content.split(separator);
+            if (split.length > 0) {
+                return Arrays.stream(split).collect(Collectors.toList());
+            }
+        }
+
+        return Collections.emptyList();
     }
 }
