@@ -202,8 +202,15 @@ public class BeanUtils {
                 Object s1 = o1 == null ? "" : o1;
                 //避免空指针异常
                 Object s2 = o2 == null ? "" : o2;
-                if (!s1.equals(s2)) {
-                    return false;
+                if (!(s1 instanceof String) && !s1.getClass().isPrimitive()) {
+                    final boolean b = checkPropertyOfBean(s1, s2);
+                    if (!b) {
+                        return false;
+                    }
+                } else {
+                    if (!s1.equals(s2)) {
+                        return false;
+                    }
                 }
             }
         } catch (Exception e) {
@@ -211,5 +218,19 @@ public class BeanUtils {
         }
 
         return true;
+    }
+
+    /**
+     * 判断是否是包装类型
+     *
+     * @param clz class
+     * @return true：是
+     */
+    public static boolean isWrapClass(Class clz) {
+        try {
+            return ((Class) clz.getField("TYPE").get(null)).isPrimitive();
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
