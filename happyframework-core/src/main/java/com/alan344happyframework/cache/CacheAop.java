@@ -1,5 +1,6 @@
 package com.alan344happyframework.cache;
 
+import com.alan344happyframework.util.StringUtils;
 import io.jsonwebtoken.lang.Assert;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +14,6 @@ import org.springframework.expression.Expression;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
-import vip.tuoyang.base.util.StringUtils;
 
 /**
  * @author pengxg
@@ -27,7 +27,7 @@ import vip.tuoyang.base.util.StringUtils;
 public class CacheAop {
     private CacheUtils cacheUtils;
 
-    @Pointcut("@annotation(vip.tuoyang.base.cache.Cacheable)")
+    @Pointcut("@annotation(Cacheable)")
     public void cachePoint() {
     }
 

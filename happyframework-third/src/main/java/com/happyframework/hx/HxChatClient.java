@@ -27,7 +27,7 @@ public interface HxChatClient {
      * @param body    client_credentials client_id client_secret
      * @return
      */
-    @PostMapping(value = "/{org_name}/{app_name}/token", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/{org_name}/{app_name}/token", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     Map<String, Object> getToken(@PathVariable("org_name") String orgName,
                                  @PathVariable("app_name") String appName,
                                  Map<String, String> body);

@@ -38,4 +38,8 @@ public interface SeparatorConstants {
      * 点
      */
     String DOT = ".";
+    /**
+     * 横杠
+     */
+    String HORIZONTAL = "-";
 }

@@ -46,8 +46,8 @@ public final class PageHelperUtils {
      * @param pageSource 源 page
      * @return page
      */
-    public static <R> vip.tuoyang.base.bean.response.Page<R> copyPage(vip.tuoyang.base.bean.response.Page<?> pageSource) {
-        vip.tuoyang.base.bean.response.Page<R> page = new vip.tuoyang.base.bean.response.Page<>();
+    public static <R> com.alan344happyframework.bean.response.Page<R> copyPage(com.alan344happyframework.bean.response.Page<?> pageSource) {
+        com.alan344happyframework.bean.response.Page<R> page = new com.alan344happyframework.bean.response.Page<>();
         page.setPageNum(pageSource.getPageNum());
         page.setPageSize(pageSource.getPageSize());
         page.setTotal(pageSource.getTotal());

@@ -1,7 +1,6 @@
 package com.alan344happyframework.bean.response;
 
-
-import vip.tuoyang.base.exception.BizException;
+import com.alan344happyframework.exception.BizException;
 
 /**
  * @author ：AlanSun

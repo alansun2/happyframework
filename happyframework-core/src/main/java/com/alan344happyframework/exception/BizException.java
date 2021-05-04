@@ -1,6 +1,7 @@
 package com.alan344happyframework.exception;
 
 
+import com.alan344happyframework.constants.ErrorCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -48,5 +49,10 @@ public class BizException extends RuntimeException {
     public BizException(String msg) {
         super(msg);
         this.errorMsg = msg;
+    }
+
+    public BizException(ErrorCode errorCode) {
+        this.errorCode = errorCode.getCode();
+        this.errorMsg = errorCode.getMessage();
     }
 }

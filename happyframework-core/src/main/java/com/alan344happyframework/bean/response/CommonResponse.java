@@ -1,12 +1,12 @@
 package com.alan344happyframework.bean.response;
 
 
+import com.alan344happyframework.constants.ErrorCode;
+import com.alan344happyframework.exception.BizException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import vip.tuoyang.base.constants.ErrorCode;
-import vip.tuoyang.base.exception.BizException;
 
 import java.time.LocalDateTime;
 

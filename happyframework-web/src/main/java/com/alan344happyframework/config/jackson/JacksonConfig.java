@@ -1,5 +1,6 @@
 package com.alan344happyframework.config.jackson;
 
+import com.alan344happyframework.util.DateUtils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,7 +9,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import vip.tuoyang.base.util.DateUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -1,5 +1,9 @@
 package com.alan344happyframework.common;
 
+import com.alan344happyframework.bean.response.CommonResponse;
+import com.alan344happyframework.constants.BaseErrorCode;
+import com.alan344happyframework.exception.BizException;
+import com.alan344happyframework.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.core.annotation.Order;
@@ -10,10 +14,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import vip.tuoyang.base.bean.response.CommonResponse;
-import vip.tuoyang.base.constants.BaseErrorCode;
-import vip.tuoyang.base.exception.BizException;
-import vip.tuoyang.base.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.UndeclaredThrowableException;

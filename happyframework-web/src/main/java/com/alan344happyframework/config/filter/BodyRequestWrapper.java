@@ -1,7 +1,7 @@
 package com.alan344happyframework.config.filter;
 
-import vip.tuoyang.base.constants.BaseErrorCode;
-import vip.tuoyang.base.exception.BizException;
+import com.alan344happyframework.constants.BaseErrorCode;
+import com.alan344happyframework.exception.BizException;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
