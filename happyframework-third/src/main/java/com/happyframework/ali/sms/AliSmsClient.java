@@ -12,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author AlanSun
@@ -46,18 +50,24 @@ public class AliSmsClient {
     }
 
     public boolean send(AliSMSParams params) {
+        List<String> signNames = new ArrayList<>();
+        List<Map<String, String>> mapParams = new ArrayList<>();
+        params.getPhones().forEach(s -> {
+            signNames.add(params.getSignName());
+            mapParams.add(params.getTemplateParam());
+        });
         SendBatchSmsRequest sendSmsRequest = new SendBatchSmsRequest()
-                .setPhoneNumberJson("[" + params.getPhoneStr() + "]")
-                .setSignNameJson("[" + params.getSignName() + "]")
+                .setPhoneNumberJson(JSONObject.toJSONString(params.getPhones()))
+                .setSignNameJson(JSONObject.toJSONString(signNames))
                 .setTemplateCode(params.getTemplateCode())
-                .setTemplateParamJson(JSONObject.toJSONString(params.getTemplateParam()));
+                .setTemplateParamJson(JSONObject.toJSONString(mapParams));
 
         // 复制代码运行请自行打印 API 的返回值
         try {
             final SendBatchSmsResponse sendBatchSmsResponse = client.sendBatchSms(sendSmsRequest);
             final SendBatchSmsResponseBody body = sendBatchSmsResponse.getBody();
             if (!"OK".equals(body.getCode())) {
-                log.error("短信发送失败，错误码: [{}]，错误信息: [{}], 信息: [{}],", body.getCode(), body.getMessage(), params.toString());
+                log.error("短信发送失败，code: [{}]，message: [{}], bizId: [{}], requestId: [{}], 信息: [{}],", body.getCode(), body.getMessage(), body.getBizId(), body.getRequestId(), params.toString());
                 return false;
             }
             return true;
@@ -65,5 +75,23 @@ public class AliSmsClient {
             log.error("短信发送失败", e);
             return false;
         }
+    }
+
+    public static void main(String[] args) throws Exception {
+        AliSmsClient aliSmsClient = new AliSmsClient();
+        AliSmsProperties aliSmsProperties = new AliSmsProperties();
+        aliSmsProperties.setAccessKeyId("LTAI4GAWn3wtHnS79tcP54Sw");
+        aliSmsProperties.setAccessKeySecret("aNVYajrqsLorZK25HjWmsL3sJn3VmF");
+        aliSmsClient.setAliSmsProperties(aliSmsProperties);
+
+        aliSmsClient.createClient();
+
+        AliSMSParams params = new AliSMSParams();
+        params.setPhones(Collections.singletonList("18698525802"));
+        params.setSignName("智安岛");
+        params.setTemplateCode("SMS_206690167");
+
+        params.setTemplateParam(Collections.singletonMap("code", "1234"));
+        aliSmsClient.send(params);
     }
 }
