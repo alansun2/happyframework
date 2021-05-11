@@ -28,11 +28,11 @@ public class AliSMSUtils {
      */
     private static final String DOMAIN = "dysmsapi.aliyuncs.com";
 
-    private AliSMSProperties aliSMSProperties;
+    private AliSmsProperties aliSmsProperties;
 
     @Autowired
-    public void setAliSMSUtils(AliSMSProperties aliSMSProperties) {
-        this.aliSMSProperties = aliSMSProperties;
+    public void setAliSmsUtils(AliSmsProperties aliSmsProperties) {
+        this.aliSmsProperties = aliSmsProperties;
     }
 
     static {
@@ -41,20 +41,23 @@ public class AliSMSUtils {
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
     }
 
-    private static IAcsClient acsClient;
+    private static volatile IAcsClient acsClient;
 
     /**
      * 初始化ascClient,暂时不支持多region（请勿修改）
      *
      * @return {@link IAcsClient}
-     * @throws ClientException e
      */
-    private IAcsClient getAcsClient() throws ClientException {
+    private IAcsClient getAcsClient() {
         if (null == acsClient) {
-            //初始化ascClient,暂时不支持多region（请勿修改）
-            IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", aliSMSProperties.getAccessKeyId(), aliSMSProperties.getAccessKeySecret());
-            DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", PRODUCT, DOMAIN);
-            acsClient = new DefaultAcsClient(profile);
+            synchronized (AliSMSUtils.class) {
+                if (null == acsClient) {
+                    //初始化ascClient,暂时不支持多region（请勿修改）
+                    IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", aliSmsProperties.getAccessKeyId(), aliSmsProperties.getAccessKeySecret());
+                    DefaultProfile.addEndpoint("cn-hangzhou", PRODUCT, DOMAIN);
+                    acsClient = new DefaultAcsClient(profile);
+                }
+            }
         }
         return acsClient;
     }
@@ -77,7 +80,7 @@ public class AliSMSUtils {
         //组装请求对象
         SendSmsRequest request = new SendSmsRequest();
         //使用post提交
-        request.setMethod(MethodType.POST);
+        request.setSysMethod(MethodType.POST);
         //必填:待发送手机号。支持以逗号分隔的形式进行批量调用，批量上限为1000个手机号码,批量调用相对于单条调用及时性稍有延迟,验证码类型的短信推荐使用单条调用的方式；发送国际/港澳台消息时，接收号码格式为00+国际区号+号码，如“0085200000000”
         request.setPhoneNumbers(phoneStr);
         //必填:短信签名-可在短信控制台中找到
@@ -106,4 +109,5 @@ public class AliSMSUtils {
 
         return true;
     }
+
 }

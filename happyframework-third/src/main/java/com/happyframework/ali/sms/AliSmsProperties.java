@@ -16,6 +16,6 @@ import org.springframework.stereotype.Component;
 @Component
 @ConditionalOnProperty(prefix = "ali.sms", name = "signName")
 @ConfigurationProperties(prefix = "ali.sms")
-class AliSMSProperties extends AliBase {
+class AliSmsProperties extends AliBase {
     private String signName;
 }
