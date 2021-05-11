@@ -4,7 +4,7 @@
 
     <groupId>icu.alan344</groupId>
     <artifactId>happyframework</artifactId>
-    <version>1.2.1-SNAPSHOT</version>
+    <version>1.2.1</version>
     <packaging>pom</packaging>
 
     <name>happyframework</name>
@@ -23,7 +23,7 @@
         <url>https://github.com/alansun2</url>
         <connection>scm:git:https://github.com/alansun2/happyframework</connection>
         <developerConnection>scm:git:git@github.com:alansun2/happyframework.git</developerConnection>
-        <tag>v1.1.0</tag>
+        <tag>v1.2.1</tag>
     </scm>
 
     <developers>
