@@ -1,12 +1,11 @@
 package com.happyframework.ali.sms;
 
-import com.alibaba.fastjson.JSON;
-import com.google.common.base.Joiner;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +17,7 @@ import java.util.Map;
 @Setter
 @ToString
 @NoArgsConstructor
-public class AliSMSParams {
+public class AliSMSParamsBatch {
     /**
      * 短信接收号码,支持以逗号分隔的形式进行批量调用，批量上限为1000个手机号码,
      * 批量调用相对于单条调用及时性稍有延迟,验证码类型的短信推荐使用单条调用的方式；
@@ -34,32 +33,17 @@ public class AliSMSParams {
     /**
      * 短信模板变量替换JSON串,友情提示:如果JSON中需要带换行符,请参照标准的JSON协议。
      */
-    private Map<String, String> templateParam;
+    private List<Map<String, String>> templateParamMaps;
 
     /**
      * 短信签名
      */
-    private String signName;
+    private List<String> signNames;
 
-    public void valid() {
-        if (null == phones || phones.isEmpty()) {
-            throw new RuntimeException("短信发送失败");
+    public void setSignRepeat(String signName) {
+        signNames = new ArrayList<>();
+        for (int i = 0; i < phones.size(); i++) {
+            signNames.add(signName);
         }
-
-        if (null == templateCode) {
-            throw new RuntimeException("短信发送失败");
-        }
-    }
-
-    public String getPhoneStr() {
-        return Joiner.on(",").join(this.phones.iterator());
-    }
-
-    public String getTemplateParamJson() {
-        String templateParamJson = null;
-        if (null != this.templateParam) {
-            templateParamJson = JSON.toJSONString(this.templateParam);
-        }
-        return templateParamJson;
     }
 }
